@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// 一旦デモの画面、後で消す
 class Screen extends HookConsumerWidget {
   Screen({super.key});
 
