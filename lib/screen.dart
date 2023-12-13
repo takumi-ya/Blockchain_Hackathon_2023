@@ -18,7 +18,9 @@ class Screen extends HookConsumerWidget {
         ),
         backgroundColor: black,
       ),
-      body: const Center(child: Text('メインの画面')),
+      body: const Center(
+        child: Text('メインの画面'),
+      ),
     );
   }
 }
