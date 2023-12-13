@@ -1,5 +1,5 @@
 name: voting_app
-description: A new Flutter project.
+description: Blockchain Hackathon 2023開発プロダクト.
 
 publish_to: 'none'
 
@@ -15,6 +15,12 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+
+  routemaster: ^1.0.1
+
+  flutter_hooks: ^0.18.6
+  freezed_annotation: ^2.4.1
+  hooks_riverpod: ^2.3.7
 
 dev_dependencies:
   flutter_test:
