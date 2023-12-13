@@ -1,21 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:voting_app/const_color.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          primaryColor: black,
+          textTheme: const TextTheme(
+            labelMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22.0,
+            ),
+          )),
+      home: Stack(
+        children: [
+          MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Voting App with BlockChain',
+            theme: ThemeData(
+              primaryColor: black,
+              textTheme: const TextTheme(
+                labelMedium: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.0,
+                ),
+              ),
+            ),
+          ),
+          // ignore: prefer_const_constructors
+          Offstage(
+              // TODO: ローディングを作る
+              child: const Scaffold(
+            backgroundColor: baseColor,
+            body: SafeArea(
+              child: Text(
+                'hoge',
+              ),
+            ),
+          ))
+        ],
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
