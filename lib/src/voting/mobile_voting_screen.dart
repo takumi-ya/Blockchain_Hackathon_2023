@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/const/const_color.dart';
+import 'package:voting_app/widget/container_text.dart';
 
 class MobileVotingScreen extends StatelessWidget {
   const MobileVotingScreen({super.key});
@@ -51,7 +52,7 @@ class MobileVotingScreen extends StatelessWidget {
               SizedBox(
                 height: deviceHeight * 0.05,
               ),
-              ContainerWithText(
+              ContainerText(
                 width: double.infinity,
                 height: deviceWidth * 0.5,
                 radius: deviceWidth * 0.05,
@@ -70,7 +71,7 @@ class MobileVotingScreen extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: ContainerWithText(
+                child: ContainerText(
                   width: deviceWidth * 0.8,
                   height: deviceWidth * 0.2,
                   radius: deviceWidth * 0.05,
@@ -89,7 +90,7 @@ class MobileVotingScreen extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: ContainerWithText(
+                child: ContainerText(
                   width: deviceWidth * 0.8,
                   height: deviceWidth * 0.2,
                   radius: deviceWidth * 0.05,
@@ -106,36 +107,6 @@ class MobileVotingScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ContainerWithText extends StatelessWidget {
-  const ContainerWithText({
-    super.key,
-    required this.width,
-    required this.height,
-    required this.radius,
-    required this.text,
-  });
-
-  final double width;
-  final double height;
-  final double radius;
-  final Widget text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: white,
-        borderRadius: BorderRadius.circular(radius),
-      ),
-      child: Center(
-        child: text,
       ),
     );
   }
