@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'const_color.dart';
+import '../../const_color.dart';
 
 // テキストデータなどは後で考える。一旦デモデータ（直書き）で作る
 class VotingScreen extends HookConsumerWidget {
