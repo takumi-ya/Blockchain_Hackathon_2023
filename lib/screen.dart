@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:voting_app/const_color.dart';
+import 'package:voting_app/const/const_color.dart';
 
 // 一旦デモの画面、後で消す
 class Screen extends HookConsumerWidget {
