@@ -13,10 +13,12 @@ class VotingScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '投票App',
-          style: TextStyle(
-            color: white,
+        title: const FittedBox(
+          child: Text(
+            '投票App',
+            style: TextStyle(
+              color: white,
+            ),
           ),
         ),
         backgroundColor: black,
@@ -63,31 +65,41 @@ class VotingScreen extends HookConsumerWidget {
               ),
             ),
             // SizedBox(
-            //   height: deviceWidth * 0.6,
+            //   height: deviceWidth * 0.2,
             // ),
             Container(
               width: deviceWidth * 0.6,
               height: deviceWidth * 0.2,
-              color: white,
-              child: Text(
-                'きのこの山',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: navyBlue,
-                  fontSize: deviceWidth * 0.1,
+              decoration: BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.circular(deviceWidth * 0.05),
+              ),
+              child: FittedBox(
+                child: Text(
+                  'きのこの山',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: navyBlue,
+                    fontSize: deviceWidth * 0.1,
+                  ),
                 ),
               ),
             ),
             Container(
               width: deviceWidth * 0.6,
               height: deviceWidth * 0.2,
-              color: white,
-              child: Text(
-                'たけのこの里',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: navyBlue,
-                  fontSize: deviceWidth * 0.1,
+              decoration: BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.circular(deviceWidth * 0.05),
+              ),
+              child: FittedBox(
+                child: Text(
+                  'たけのこの里',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: navyBlue,
+                    fontSize: deviceWidth * 0.1,
+                  ),
                 ),
               ),
             ),
