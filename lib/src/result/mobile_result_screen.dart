@@ -94,6 +94,7 @@ class MobileResultScreen extends StatelessWidget {
                     width: deviceWidth * 0.6,
                     height: deviceWidth * 0.2,
                     radius: deviceWidth * 0.05,
+                    color: numOfChoice1 > numOfChoice2 ? primaryColor : white,
                     text: Text(
                       choice1,
                       style: TextStyle(
@@ -123,6 +124,7 @@ class MobileResultScreen extends StatelessWidget {
                     width: deviceWidth * 0.6,
                     height: deviceWidth * 0.2,
                     radius: deviceWidth * 0.05,
+                    color: numOfChoice2 > numOfChoice1 ? primaryColor : white,
                     text: Text(
                       choice2,
                       style: TextStyle(
