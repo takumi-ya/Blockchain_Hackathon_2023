@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 import 'package:voting_app/const/const_color.dart';
 import 'package:voting_app/widget/container_text.dart';
 
@@ -104,6 +105,27 @@ class MobileVotingScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: deviceWidth * 0.05,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () => Routemaster.of(context).push('result'),
+                  child: ContainerText(
+                    width: deviceWidth * 0.2,
+                    height: deviceHeight * 0.1,
+                    radius: deviceWidth * 0.01,
+                    text: Text(
+                      '結果へ',
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontSize: deviceWidth * 0.05,
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
