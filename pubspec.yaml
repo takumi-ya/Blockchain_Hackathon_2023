@@ -22,6 +22,8 @@ dependencies:
   freezed_annotation: ^2.4.1
   hooks_riverpod: ^2.3.7
   json_annotation: ^4.8.1
+  http: ^0.13.6
+  web3dart: ^2.6.1
 
 dev_dependencies:
   flutter_test:
@@ -36,4 +38,3 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-

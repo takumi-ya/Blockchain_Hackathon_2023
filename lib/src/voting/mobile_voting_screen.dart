@@ -1,13 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
+import 'package:flutter/services.dart';
 import 'package:voting_app/const/const_color.dart';
 import 'package:voting_app/model/vote_model.dart';
 import 'package:voting_app/widget/container_text.dart';
+import 'package:http/http.dart';
+import 'package:web3dart/web3dart.dart';
 
-class MobileVotingScreen extends StatelessWidget {
+class MobileVotingScreen extends StatefulWidget {
   const MobileVotingScreen({super.key, required this.vote});
 
   final VoteModel vote;
+
+  @override
+  _MobileVotingScreenState createState() =>
+      _MobileVotingScreenState(vote: vote);
+}
+
+class _MobileVotingScreenState extends State<MobileVotingScreen> {
+  _MobileVotingScreenState({required this.vote});
+  final VoteModel vote;
+
+  late Client httpClient;
+
+  late Web3Client ethClient;
+
+  final String myAddress = "0xFA004285b0C503A5350942005906f890De83d765";
+  final String blockchainUrl =
+      "https://rinkeby.infura.io/v3/b960cfdf66e64e4cbcd0507d90ba86a8";
+
+  var totalVotesA = 0;
+  var totalVotesB = 0;
+
+  @override
+  void initState() {
+    httpClient = Client();
+    ethClient = Web3Client(blockchainUrl, httpClient);
+    getTotalVotes();
+    super.initState();
+  }
+
+  Future<DeployedContract> getContract() async {
+    String abiFile = await rootBundle.loadString("assets/contract.json");
+    String contractAddress = "0xFA004285b0C503A5350942005906f890De83d765";
+    final contract = DeployedContract(ContractAbi.fromJson(abiFile, "Voting"),
+        EthereumAddress.fromHex(contractAddress));
+
+    return contract;
+  }
+
+  Future<List<dynamic>> callFunction(String name) async {
+    final contract = await getContract();
+    final function = contract.function(name);
+    final result = await ethClient
+        .call(contract: contract, function: function, params: []);
+    return result;
+  }
+
+  Future<void> getTotalVotes() async {
+    List<dynamic> resultsA = await callFunction("getTotalVotesAlpha");
+    List<dynamic> resultsB = await callFunction("getTotalVotesBeta");
+    totalVotesA = resultsA[0];
+    totalVotesB = resultsB[0];
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +81,11 @@ class MobileVotingScreen extends StatelessWidget {
           child: Text(
             '投票App',
             style: TextStyle(
-              color: white,
+              color: Colors.white,
             ),
           ),
         ),
-        backgroundColor: black,
+        backgroundColor: Colors.black,
       ),
       backgroundColor: baseColor,
       body: Padding(
@@ -51,7 +108,7 @@ class MobileVotingScreen extends StatelessWidget {
                   child: Text(
                     '投票',
                     style: TextStyle(
-                      color: white,
+                      color: Colors.white,
                       fontSize: deviceWidth * 0.08,
                     ),
                   ),
@@ -79,16 +136,23 @@ class MobileVotingScreen extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: ContainerText(
-                  width: deviceWidth * 0.8,
-                  height: deviceWidth * 0.2,
-                  radius: deviceWidth * 0.05,
-                  text: Text(
-                    vote.choices[0],
-                    style: TextStyle(
-                      color: navyBlue,
-                      fontSize: deviceWidth * 0.1,
-                      fontWeight: FontWeight.bold,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      totalVotesA++;
+                    });
+                  },
+                  child: ContainerText(
+                    width: deviceWidth * 0.8,
+                    height: deviceWidth * 0.2,
+                    radius: deviceWidth * 0.05,
+                    text: Text(
+                      vote.choices[0],
+                      style: TextStyle(
+                        color: navyBlue,
+                        fontSize: deviceWidth * 0.1,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -98,22 +162,31 @@ class MobileVotingScreen extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.center,
-                child: ContainerText(
-                  width: deviceWidth * 0.8,
-                  height: deviceWidth * 0.2,
-                  radius: deviceWidth * 0.05,
-                  text: Text(
-                    vote.choices[1],
-                    style: TextStyle(
-                      color: navyBlue,
-                      fontSize: deviceWidth * 0.1,
-                      fontWeight: FontWeight.bold,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(
+                      () {
+                        totalVotesB++;
+                      },
+                    );
+                  },
+                  child: ContainerText(
+                    width: deviceWidth * 0.8,
+                    height: deviceWidth * 0.2,
+                    radius: deviceWidth * 0.05,
+                    text: Text(
+                      vote.choices[1],
+                      style: TextStyle(
+                        color: navyBlue,
+                        fontSize: deviceWidth * 0.1,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                height: deviceWidth * 0.05,
+                height: deviceWidth * 0.075,
               ),
               Align(
                 alignment: Alignment.centerRight,
@@ -122,7 +195,7 @@ class MobileVotingScreen extends StatelessWidget {
                       Routemaster.of(context).push('result/${vote.id}'),
                   child: ContainerText(
                     width: deviceWidth * 0.2,
-                    height: deviceHeight * 0.1,
+                    height: deviceHeight * 0.05,
                     radius: deviceWidth * 0.01,
                     text: Text(
                       '結果へ',
