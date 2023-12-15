@@ -59,7 +59,7 @@ class MobileResultScreen extends StatelessWidget {
                 ),
                 child: FittedBox(
                   child: Text(
-                    '投票',
+                    '結果',
                     style: TextStyle(
                       color: white,
                       fontSize: deviceWidth * 0.08,

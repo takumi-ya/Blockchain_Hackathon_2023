@@ -185,7 +185,7 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
                 ),
               ),
               SizedBox(
-                height: deviceWidth * 0.05,
+                height: deviceWidth * 0.075,
               ),
               Align(
                 alignment: Alignment.centerRight,
@@ -193,7 +193,7 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
                   onTap: () => Routemaster.of(context).push('result'),
                   child: ContainerText(
                     width: deviceWidth * 0.2,
-                    height: deviceHeight * 0.1,
+                    height: deviceHeight * 0.05,
                     radius: deviceWidth * 0.01,
                     text: Text(
                       '結果へ',
