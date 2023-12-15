@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:voting_app/const/const_color.dart';
+import 'package:voting_app/model/vote_model.dart';
 import 'package:voting_app/widget/container_text.dart';
 
 class MobileVotingScreen extends StatelessWidget {
-  const MobileVotingScreen({super.key});
+  const MobileVotingScreen({super.key, required this.vote});
+
+  final VoteModel vote;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +16,10 @@ class MobileVotingScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Routemaster.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         title: const FittedBox(
           child: Text(
             '投票App',
@@ -58,7 +65,7 @@ class MobileVotingScreen extends StatelessWidget {
                 height: deviceWidth * 0.5,
                 radius: deviceWidth * 0.05,
                 text: Text(
-                  'きのこの山と\nたけのこの里\nどっちが好き？',
+                  vote.topic,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: navyBlue,
@@ -77,7 +84,7 @@ class MobileVotingScreen extends StatelessWidget {
                   height: deviceWidth * 0.2,
                   radius: deviceWidth * 0.05,
                   text: Text(
-                    'きのこの山',
+                    vote.choices[0],
                     style: TextStyle(
                       color: navyBlue,
                       fontSize: deviceWidth * 0.1,
@@ -96,7 +103,7 @@ class MobileVotingScreen extends StatelessWidget {
                   height: deviceWidth * 0.2,
                   radius: deviceWidth * 0.05,
                   text: Text(
-                    'たけのこの里',
+                    vote.choices[1],
                     style: TextStyle(
                       color: navyBlue,
                       fontSize: deviceWidth * 0.1,
@@ -111,7 +118,8 @@ class MobileVotingScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: () => Routemaster.of(context).push('result'),
+                  onTap: () =>
+                      Routemaster.of(context).push('result/${vote.id}'),
                   child: ContainerText(
                     width: deviceWidth * 0.2,
                     height: deviceHeight * 0.1,
