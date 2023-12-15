@@ -3,8 +3,21 @@ import 'package:routemaster/routemaster.dart';
 import 'package:voting_app/const/const_color.dart';
 import 'package:voting_app/widget/container_text.dart';
 
-class MobileVotingScreen extends StatelessWidget {
-  const MobileVotingScreen({super.key});
+class MobileResultScreen extends StatelessWidget {
+  const MobileResultScreen({
+    super.key,
+    required this.topic,
+    required this.choice1,
+    required this.numOfChoice1,
+    required this.choice2,
+    required this.numOfChoice2,
+  });
+
+  final String topic;
+  final String choice1;
+  final int numOfChoice1;
+  final String choice2;
+  final int numOfChoice2;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +26,10 @@ class MobileVotingScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Routemaster.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         title: const FittedBox(
           child: Text(
             '投票App',
@@ -58,7 +75,7 @@ class MobileVotingScreen extends StatelessWidget {
                 height: deviceWidth * 0.5,
                 radius: deviceWidth * 0.05,
                 text: Text(
-                  'きのこの山と\nたけのこの里\nどっちが好き？',
+                  topic,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: navyBlue,
@@ -70,62 +87,63 @@ class MobileVotingScreen extends StatelessWidget {
               SizedBox(
                 height: deviceWidth * 0.2,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: ContainerText(
-                  width: deviceWidth * 0.8,
-                  height: deviceWidth * 0.2,
-                  radius: deviceWidth * 0.05,
-                  text: Text(
-                    'きのこの山',
-                    style: TextStyle(
-                      color: navyBlue,
-                      fontSize: deviceWidth * 0.1,
-                      fontWeight: FontWeight.bold,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ContainerText(
+                    width: deviceWidth * 0.6,
+                    height: deviceWidth * 0.2,
+                    radius: deviceWidth * 0.05,
+                    color: numOfChoice1 > numOfChoice2 ? primaryColor : white,
+                    text: Text(
+                      choice1,
+                      style: TextStyle(
+                        color: navyBlue,
+                        fontSize: deviceWidth * 0.1,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
+                  Text(
+                    '$numOfChoice1',
+                    style: TextStyle(
+                      color: numOfChoice1 > numOfChoice2 ? black : grey,
+                      fontSize: deviceWidth * 0.15,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  )
+                ],
               ),
               SizedBox(
                 height: deviceWidth * 0.1,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: ContainerText(
-                  width: deviceWidth * 0.8,
-                  height: deviceWidth * 0.2,
-                  radius: deviceWidth * 0.05,
-                  text: Text(
-                    'たけのこの里',
-                    style: TextStyle(
-                      color: navyBlue,
-                      fontSize: deviceWidth * 0.1,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: deviceWidth * 0.05,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () => Routemaster.of(context).push('result'),
-                  child: ContainerText(
-                    width: deviceWidth * 0.2,
-                    height: deviceHeight * 0.1,
-                    radius: deviceWidth * 0.01,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ContainerText(
+                    width: deviceWidth * 0.6,
+                    height: deviceWidth * 0.2,
+                    radius: deviceWidth * 0.05,
+                    color: numOfChoice2 > numOfChoice1 ? primaryColor : white,
                     text: Text(
-                      '結果へ',
+                      choice2,
                       style: TextStyle(
-                        color: primaryColor,
-                        fontSize: deviceWidth * 0.05,
+                        color: navyBlue,
+                        fontSize: deviceWidth * 0.1,
+                        fontWeight: FontWeight.w900,
                       ),
                     ),
                   ),
-                ),
-              )
+                  Text(
+                    '$numOfChoice2',
+                    style: TextStyle(
+                      color: numOfChoice2 > numOfChoice1 ? black : grey,
+                      fontSize: deviceWidth * 0.15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
             ],
           ),
         ),
