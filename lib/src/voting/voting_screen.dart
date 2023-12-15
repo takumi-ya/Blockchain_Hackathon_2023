@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:voting_app/const/const_color.dart';
+import 'package:voting_app/model/vote_model.dart';
 import 'package:voting_app/src/voting/mobile_voting_screen.dart';
 import 'package:voting_app/widget/responsive_layout.dart';
 
-// テキストデータなどは後で考える。一旦デモデータ（直書き）で作る
+// 一旦デモデータで作る
 class VotingScreen extends HookConsumerWidget {
-  const VotingScreen({super.key});
+  const VotingScreen({super.key, required this.vote});
+
+  final VoteModel vote;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
+    return Scaffold(
       body: ResponsiveLayout(
-        mobileScreen: MobileVotingScreen(),
+        mobileScreen: MobileVotingScreen(
+          vote: vote,
+        ),
       ),
     );
   }

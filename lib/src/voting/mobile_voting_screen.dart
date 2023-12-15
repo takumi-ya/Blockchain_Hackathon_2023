@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:flutter/services.dart';
 import 'package:voting_app/const/const_color.dart';
+import 'package:voting_app/model/vote_model.dart';
 import 'package:voting_app/widget/container_text.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
 class MobileVotingScreen extends StatefulWidget {
-  const MobileVotingScreen({Key? key}) : super(key: key);
+  const MobileVotingScreen({super.key, required this.vote});
+
+  final VoteModel vote;
 
   @override
-  _MobileVotingScreenState createState() => _MobileVotingScreenState();
+  _MobileVotingScreenState createState() =>
+      _MobileVotingScreenState(vote: vote);
 }
 
 class _MobileVotingScreenState extends State<MobileVotingScreen> {
+  _MobileVotingScreenState({required this.vote});
+  final VoteModel vote;
+
   late Client httpClient;
 
   late Web3Client ethClient;
@@ -66,6 +73,10 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Routemaster.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         title: const FittedBox(
           child: Text(
             '投票App',
@@ -111,7 +122,7 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
                 height: deviceWidth * 0.5,
                 radius: deviceWidth * 0.05,
                 text: Text(
-                  'きのこの山と\nたけのこの里\nどっちが好き？',
+                  vote.topic,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: navyBlue,
@@ -131,21 +142,16 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
                       totalVotesA++;
                     });
                   },
-                  child: Container(
+                  child: ContainerText(
                     width: deviceWidth * 0.8,
                     height: deviceWidth * 0.2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(deviceWidth * 0.05),
-                      color: Colors.grey, // Replace with your desired color
-                    ),
-                    child: Center(
-                      child: Text(
-                        'きのこの山',
-                        style: TextStyle(
-                          color: navyBlue, // Assuming navyBlue is defined
-                          fontSize: deviceWidth * 0.1,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    radius: deviceWidth * 0.05,
+                    text: Text(
+                      vote.choices[0],
+                      style: TextStyle(
+                        color: navyBlue,
+                        fontSize: deviceWidth * 0.1,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -164,21 +170,16 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
                       },
                     );
                   },
-                  child: Container(
+                  child: ContainerText(
                     width: deviceWidth * 0.8,
                     height: deviceWidth * 0.2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(deviceWidth * 0.05),
-                      color: Colors.grey, // Replace with your desired color
-                    ),
-                    child: Center(
-                      child: Text(
-                        'たけのこの里',
-                        style: TextStyle(
-                          color: navyBlue, // Assuming navyBlue is defined
-                          fontSize: deviceWidth * 0.1,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    radius: deviceWidth * 0.05,
+                    text: Text(
+                      vote.choices[1],
+                      style: TextStyle(
+                        color: navyBlue,
+                        fontSize: deviceWidth * 0.1,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -190,7 +191,8 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: () => Routemaster.of(context).push('result'),
+                  onTap: () =>
+                      Routemaster.of(context).push('result/${vote.id}'),
                   child: ContainerText(
                     width: deviceWidth * 0.2,
                     height: deviceHeight * 0.05,

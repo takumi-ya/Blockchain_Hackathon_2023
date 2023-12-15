@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:voting_app/const/const_color.dart';
+import 'package:voting_app/model/vote_model.dart';
 import 'package:voting_app/widget/container_text.dart';
 
 class MobileResultScreen extends StatelessWidget {
   const MobileResultScreen({
     super.key,
-    required this.topic,
-    required this.choice1,
-    required this.numOfChoice1,
-    required this.choice2,
-    required this.numOfChoice2,
+    required this.vote,
   });
 
-  final String topic;
-  final String choice1;
-  final int numOfChoice1;
-  final String choice2;
-  final int numOfChoice2;
+  final VoteModel vote;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +68,7 @@ class MobileResultScreen extends StatelessWidget {
                 height: deviceWidth * 0.5,
                 radius: deviceWidth * 0.05,
                 text: Text(
-                  topic,
+                  vote.topic,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: navyBlue,
@@ -94,9 +87,11 @@ class MobileResultScreen extends StatelessWidget {
                     width: deviceWidth * 0.6,
                     height: deviceWidth * 0.2,
                     radius: deviceWidth * 0.05,
-                    color: numOfChoice1 > numOfChoice2 ? primaryColor : white,
+                    color: vote.numOfChoices[0] > vote.numOfChoices[1]
+                        ? primaryColor
+                        : white,
                     text: Text(
-                      choice1,
+                      vote.choices[0],
                       style: TextStyle(
                         color: navyBlue,
                         fontSize: deviceWidth * 0.1,
@@ -105,9 +100,11 @@ class MobileResultScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$numOfChoice1',
+                    '${vote.numOfChoices[0]}',
                     style: TextStyle(
-                      color: numOfChoice1 > numOfChoice2 ? black : grey,
+                      color: vote.numOfChoices[0] > vote.numOfChoices[1]
+                          ? black
+                          : grey,
                       fontSize: deviceWidth * 0.15,
                       fontWeight: FontWeight.w900,
                     ),
@@ -124,9 +121,11 @@ class MobileResultScreen extends StatelessWidget {
                     width: deviceWidth * 0.6,
                     height: deviceWidth * 0.2,
                     radius: deviceWidth * 0.05,
-                    color: numOfChoice2 > numOfChoice1 ? primaryColor : white,
+                    color: vote.numOfChoices[1] > vote.numOfChoices[0]
+                        ? primaryColor
+                        : white,
                     text: Text(
-                      choice2,
+                      vote.choices[1],
                       style: TextStyle(
                         color: navyBlue,
                         fontSize: deviceWidth * 0.1,
@@ -135,9 +134,11 @@ class MobileResultScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$numOfChoice2',
+                    '${vote.numOfChoices[1]}',
                     style: TextStyle(
-                      color: numOfChoice2 > numOfChoice1 ? black : grey,
+                      color: vote.numOfChoices[1] > vote.numOfChoices[0]
+                          ? black
+                          : grey,
                       fontSize: deviceWidth * 0.15,
                       fontWeight: FontWeight.bold,
                     ),
