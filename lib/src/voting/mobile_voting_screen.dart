@@ -21,8 +21,8 @@ class _MobileVotingScreenState extends State<MobileVotingScreen> {
   final String blockchainUrl =
       "https://rinkeby.infura.io/v3/b960cfdf66e64e4cbcd0507d90ba86a8";
 
-  var totalVotesA;
-  var totalVotesB;
+  var totalVotesA = 0;
+  var totalVotesB = 0;
 
   @override
   void initState() {
