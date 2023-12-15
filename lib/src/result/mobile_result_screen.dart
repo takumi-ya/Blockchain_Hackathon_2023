@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 import 'package:voting_app/const/const_color.dart';
 import 'package:voting_app/widget/container_text.dart';
 
@@ -25,6 +26,10 @@ class MobileResultScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Routemaster.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         title: const FittedBox(
           child: Text(
             '投票App',
@@ -89,6 +94,7 @@ class MobileResultScreen extends StatelessWidget {
                     width: deviceWidth * 0.6,
                     height: deviceWidth * 0.2,
                     radius: deviceWidth * 0.05,
+                    color: numOfChoice1 > numOfChoice2 ? primaryColor : white,
                     text: Text(
                       choice1,
                       style: TextStyle(
@@ -99,7 +105,7 @@ class MobileResultScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$numOfChoice1%',
+                    '$numOfChoice1',
                     style: TextStyle(
                       color: numOfChoice1 > numOfChoice2 ? black : grey,
                       fontSize: deviceWidth * 0.15,
@@ -118,6 +124,7 @@ class MobileResultScreen extends StatelessWidget {
                     width: deviceWidth * 0.6,
                     height: deviceWidth * 0.2,
                     radius: deviceWidth * 0.05,
+                    color: numOfChoice2 > numOfChoice1 ? primaryColor : white,
                     text: Text(
                       choice2,
                       style: TextStyle(
@@ -128,7 +135,7 @@ class MobileResultScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '$numOfChoice2%',
+                    '$numOfChoice2',
                     style: TextStyle(
                       color: numOfChoice2 > numOfChoice1 ? black : grey,
                       fontSize: deviceWidth * 0.15,

@@ -4,12 +4,14 @@ import 'package:voting_app/const/const_color.dart';
 class ContainerText extends StatelessWidget {
   const ContainerText({
     super.key,
+    this.color,
     required this.width,
     required this.height,
     required this.radius,
     required this.text,
   });
 
+  final Color? color;
   final double width;
   final double height;
   final double radius;
@@ -21,11 +23,13 @@ class ContainerText extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: white,
+        color: color ?? white,
         borderRadius: BorderRadius.circular(radius),
       ),
       child: Center(
-        child: text,
+        child: FittedBox(
+          child: text,
+        ),
       ),
     );
   }
